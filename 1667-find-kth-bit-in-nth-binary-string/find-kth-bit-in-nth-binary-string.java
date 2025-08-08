@@ -11,12 +11,8 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         sb.append("0");
         for(int i = 1; i < n; i++) {
-            // for(char c : sb.toString().toCharArray()) {
-            //     if(c == '0') {
-                    String s = comp(sb.toString());
-                    sb.append('1').append(s);
-                // }
-            // }
+            String s = comp(sb.toString());
+            sb.append('1').append(s);
         }
         return sb.charAt(k-1);
     }

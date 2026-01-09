@@ -1,8 +1,8 @@
 class Solution {
     public int removeDuplicates(int[] a) {
+        int k = 0; 
         int n = a.length;
-        int j = 0, k = 0;
-        int i = 0;
+        int i = 0, j = 0;
         while(i < n) {
             a[k++] = a[i];
             while(i < n && a[i] == a[j]) {

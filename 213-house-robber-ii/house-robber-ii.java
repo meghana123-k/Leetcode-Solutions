@@ -1,20 +1,19 @@
 class Solution {
-    int[] dp;
-    int helper(int[] nums, int idx, int len) {
-        if(idx >= len) return 0; 
-        if(dp[idx] != -1) return dp[idx];
-        int take = nums[idx] + helper(nums, idx + 2, len);
-        int notTake = helper(nums, idx + 1, len);
-        return dp[idx] = Math.max(take, notTake);
-    }
     public int rob(int[] nums) {
         int n = nums.length;
-        dp = new int[n+1];
-        Arrays.fill(dp, -1);
         if(n == 1) return nums[0];
-        int r1 = helper(nums, 0, n-1);
-        Arrays.fill(dp, -1);
-        int r2 = helper(nums, 1, n);
-        return Math.max(r1, r2);
+        int dp[] = new int[n];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for(int i = 2; i < n-1; i++) {
+            dp[i] = Math.max(nums[i] + dp[i-2], dp[i-1]);
+        }
+        int r1 = dp[n-2];
+        Arrays.fill(dp, 0);
+        dp[1] = nums[1];
+        for(int i = 2; i < n; i++) {
+            dp[i] = Math.max(nums[i] + dp[i-2], dp[i-1]);
+        }
+        return Math.max(r1, dp[n-1]);
     }
 }

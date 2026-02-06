@@ -13,22 +13,22 @@ class Solution {
             sum += num;
         }
         if(sum % 2 != 0) return false;
-        boolean[][] dp = new boolean[n+1][sum+1];
         int target = sum / 2;
+        boolean[][] dp = new boolean[n+1][target+1];
         for(int i = 1; i <= n; i++) {
-            for(int j = 0; j <= sum; j++) {
-                if(j == target) {
-                    dp[i][j] = true;
-                } else {
-                    boolean rem = false;
-                    if(j - nums[i-1] >= 0) {
-                        rem = dp[i-1][j - nums[i-1]];
-                    }
-                    dp[i][j] = dp[i-1][j] || rem;
+            dp[i][0] = true;
+        }
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= target; j++) {
+                boolean notTake = dp[i-1][j];
+                boolean take = false;
+                if(j - nums[i-1] >= 0) {
+                    take = dp[i-1][j - nums[i-1]];
                 }
+                dp[i][j] = take || notTake;
             }
         }
-        return dp[n][sum];
+        return dp[n][target];
         // return helper(nums, 0, sum, sum/2);
     }
 }
